@@ -21,13 +21,12 @@ repos:
         node: terraform-polkadot-aws-node
         asg: terraform-polkadot-aws-asg
         telemetry: terraform-polkadot-aws-telemetry
-
-        api-lb: terraform-polkadot-aws-api-lb
         user-data: terraform-polkadot-user-data
+#        api-lb: terraform-polkadot-aws-api-lb
 
       charts:
         api: substrate-api-chart
 
     services:
-      websocket-logger:
+      websocket-logger: websocket-logger
       status-page: substrate-status-page
