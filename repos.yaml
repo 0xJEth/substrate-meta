@@ -1,0 +1,33 @@
+repos:
+  type: meta_repo
+  git_org: geometry-labs
+  repo_tree:
+    infra:
+      ansible:
+
+        base: ansible-role-polkadot-base
+        telemetry: ansible-role-substrate-telemetry
+        connect-envoy: ansible-role-substrate-connect-envoy-config
+        truth: ansible-role-polkadot-truth
+        validator: ansible-role-polkadot-validator
+
+        library: ansible-role-polkadot-library
+
+        health-check: ansible-role-polkadot-health-check
+
+
+      terraform:
+
+        node: terraform-polkadot-aws-node
+        asg: terraform-polkadot-aws-asg
+        telemetry: terraform-polkadot-aws-telemetry
+
+        api-lb: terraform-polkadot-aws-api-lb
+        user-data: terraform-polkadot-user-data
+
+      charts:
+        api: substrate-api-chart
+
+    services:
+      websocket-logger:
+      status-page: substrate-status-page
