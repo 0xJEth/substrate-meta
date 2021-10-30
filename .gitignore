@@ -1,6 +1,7 @@
 ansible
 terraform
 charts
+services
 status-page
 
 # Old
