@@ -17,7 +17,9 @@ All sub-repos can be pulled locally running `make pull-repos`.
 | [Node](https://github.com/geometry-labs/terraform-polkadot-aws-node) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-aws-node.svg?style=flat)]() | ![](https://github.com/geometry-labs/terraform-polkadot-aws-node/workflows/integration/badge.svg?branch=main) | 
 | [Autoscaling Group](https://github.com/geometry-labs/terraform-polkadot-aws-asg) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-aws-asg.svg?style=flat)]() | ![](https://github.com/geometry-labs/terraform-polkadot-aws-asg/workflows/integration/badge.svg?branch=main) | 
 | [Telemetry](https://github.com/geometry-labs/terraform-polkadot-aws-telemetry) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-aws-telemetry.svg?style=flat)]() | ![](https://github.com/geometry-labs/terraform-polkadot-aws-telemetry/workflows/integration/badge.svg?branch=main) | 
-| [User Data](https://github.com/geometry-labs/**terraform-polkadot-user-data**) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-user-data.svg?style=flat)]() | ![](https://github.com/geometry-labs/terraform-polkadot-user-data/workflows/integration/badge.svg?branch=main) | 
+| [User Data](https://github.com/geometry-labs/terraform-polkadot-user-data) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-user-data.svg?style=flat)]() | ![](https://github.com/geometry-labs/terraform-polkadot-user-data/workflows/integration/badge.svg?branch=main) | 
+
+[comment]: <> (| [Archive Cloudfront]&#40;https://github.com/geometry-labs/terraform-substrate-archive-cloudfront&#41; | [![GitHub Release]&#40;https://img.shields.io/github/release/geometry-labs/terraform-substrate-archive-cloudfront.svg?style=flat&#41;]&#40;&#41; | ![]&#40;https://github.com/geometry-labs/terraform-substrate-archive-cloudfront/workflows/integration/badge.svg?branch=main&#41; |)
 
 #### Ansible 
 
