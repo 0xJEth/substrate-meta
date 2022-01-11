@@ -6,6 +6,8 @@ Meta repo for Substrate based blockchains for the W3F ecosystem including Polkad
 
 #### [Status Page](https://status.icon.geometry.io) 
 
+#### [Docs for downloading full archive copies of Kusama and Polkadot](archive_sync.md)
+
 ### Sub-Repos
 
 All sub-repos can be pulled locally running `make pull-repos`.
