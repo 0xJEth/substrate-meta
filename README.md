@@ -42,3 +42,6 @@ All sub-repos can be pulled locally running `make pull-repos`.
 | [Status Page](https://github.com/geometry-labs/substrate-status-page) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/substrate-status-page.svg?style=flat)]() | ![](https://github.com/geometry-labs/substrate-status-page/workflows/Uptime%20CI/badge.svg?branch=main) | 
 | [Websocket Loggger](https://github.com/geometry-labs/websocket-logger) | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/websocket-logger.svg?style=flat)]() | ![](https://github.com/geometry-labs/websocket-logger/actions/workflows/release-ecr.yml/badge.svg) | 
 
+### License
+
+[Apache 2.0](LICENSE)
