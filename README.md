@@ -6,7 +6,18 @@ Meta repo for Substrate based blockchains for the W3F ecosystem including Polkad
 
 #### [Status Page](https://status.icon.geometry.io) 
 
-#### [Docs for downloading full archive copies of Kusama and Polkadot](docs/archive_sync.md)
+#### Downloading a copy of the archive databases
+
+A [shell script](sync/archive_download.sh) is provided in the [sync](sync/) folder of this repo.
+To use the script, just download and run:
+
+```shell
+./archive_download.sh <network> <destination_path>
+```
+
+Where `network` is either `polkadot` or `kusama`, and `destination_path` is the absolute path for the download (e.g. `/data/chains/polkadot/db/full/`)
+
+Prior to using, you must have installed [aria2c](https://aria2.github.io/).
 
 ### Sub-Repos
 
