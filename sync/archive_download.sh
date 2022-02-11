@@ -9,6 +9,12 @@ if [[ $# -ne 2 ]]; then
   exit 2
 fi
 
+if ! command -v aria2c -h &> /dev/null
+then
+    echo "aria2c could not be found. Please install https://github.com/aria2/aria2 / \`apt install -y aria2\` / \`brew install aria2\`"
+    exit 2
+fi
+
 NETWORK=$1
 DEST_PATH=$2
 
