@@ -23,10 +23,12 @@ DEST_PATH=$2
 
 if [ "$NETWORK" == "polkadot" ]
 then
-  MANIFEST_LOCATION="https://substrate.archive.aws.geometry.io/polkadot_manifest.txt"
+  PRIMARY_MANIFEST_LOCATION="https://substrate.archive.aws.geometry.io/polkadot_primary_manifest.txt"
+  PARACHAINS_MANIFEST_LOCATION="https://substrate.archive.aws.geometry.io/polkadot_parachains_manifest.txt"
 elif [ "$NETWORK" == "kusama" ]
 then
-  MANIFEST_LOCATION="https://substrate.archive.aws.geometry.io/kusama_manifest.txt"
+  PRIMARY_MANIFEST_LOCATION="https://substrate.archive.aws.geometry.io/kusama_primary_manifest.txt"
+  PARACHAINS_MANIFEST_LOCATION="https://substrate.archive.aws.geometry.io/polkadot_parachains_manifest.txt"
 else
   echo "Network must be either 'polkadot' or 'kusama'"
   exit 2
@@ -34,15 +36,22 @@ fi
 
 for (( ; ; ))
 do
-  # download manifest
-  MANIFEST=$(curl -s $MANIFEST_LOCATION)
+  # download primary manifest
+  MANIFEST=$(curl -s $PRIMARY_MANIFEST_LOCATION)
 
   # and collect valid through time
   END_VALID_TIME=$(echo "$MANIFEST" | awk 'NR==1{print $5}')
 
   # run download
-  echo "Starting download..."
+  echo "Starting primary download..."
   echo "$MANIFEST" | aria2c -d $DEST_PATH -c --auto-file-renaming=false -j 25 -i -
+
+  # download parachains manifest
+  MANIFEST=$(curl -s $PARACHAINS_MANIFEST_LOCATION)
+
+  # run download
+  echo "Starting parachains download..."
+  echo "$MANIFEST" | aria2c -d "$DEST_PATH"parachains/db/ -c --auto-file-renaming=false -j 25 -i -
 
   # grab current time
   NOW=$(date +"%s")
@@ -55,8 +64,6 @@ do
   fi
 
   echo "Download completed after manifest expiry. Will resume..."
-  rm $DEST_PATH/CURRENT
-  rm $DEST_PATH/LOG
 
 done
 
