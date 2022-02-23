@@ -19,6 +19,10 @@ Where `network` is either `polkadot` or `kusama`, and `destination_path` is the 
 
 Prior to using, you must have installed [aria2c](https://aria2.github.io/).
 
+### Monitoring
+
+Prometheus [rule files](prometheus/rules.yaml) and [scrape configurations](prometheus/scrape-configs.yaml) are available in the [prometheus folder](prometheus).
+
 ### Sub-Repos
 
 All sub-repos can be pulled locally running `make pull-repos`.

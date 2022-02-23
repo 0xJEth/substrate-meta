@@ -1,0 +1,62 @@
+nodes:
+  groups:
+    - name: nodes-rules
+      rules:
+        - alert: NodeHighCPU
+          expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100) > 80
+          for: 10m
+          labels:
+            severety: critical
+            group: substrate-nodes
+            region: ${ region }
+          annotations:
+            summary: Substrate node has high CPU ({{ $value }})
+            description: "Substrate node has high CPU ({{ $value }})\n LABELS: {{ $labels }}"
+        - alert: NodeHighRAM
+          expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 20
+          for: 10m
+          labels:
+            severety: critical
+            group: substrate-nodes
+            region: ${ region }
+          annotations:
+            summary: Substrate node has high RAM usage ({{ $value }})
+            description: "Substrate node has high RAM usage ({{ $value }})\n LABELS: {{ $labels }}"
+        - alert: NodeLowDisk
+          expr: 100 * node_filesystem_avail_bytes / node_filesystem_size_bytes < 5
+          for: 10m
+          labels:
+            severety: critical
+            group: substrate-nodes
+            region: ${ region }
+          annotations:
+            summary: Substrate node has low available disk ({{ $value }})
+            description: "Substrate node has low available disk ({{ $value }})\n LABELS: {{ $labels }}"
+        - alert: NodeNICSaturation
+          expr: (rate(node_network_receive_bytes_total{device="ens5"}[1m]) + rate(node_network_transmit_bytes_total{device="ens5"}[1m])) > 10000000000
+          for: 10m
+          labels:
+            severety: critical
+            group: substrate-nodes
+            region: ${ region }
+          annotations:
+            summary: Substrate node has NIC saturation ({{ $value }})
+            description: "Substrate node has NIC saturation ({{ $value }})\n LABELS: {{ $labels }}"
+        - alert: PolkadotScalingEventPendingInstance
+          expr: aws_autoscaling_group_pending_instances_average{auto_scaling_group_name=~"polk.*"} > 0
+          labels:
+            severety: critical
+            group: substrate-nodes
+            region: ${ region }
+          annotations:
+            summary: Substrate node scaling event
+            description: "Substrate scaling ({{ $value }})\n LABELS: {{ $labels }}"
+        - alert: PolkadotScalingEventInstanceChange
+          expr: irate(aws_autoscaling_group_in_service_instances_average[1m]) > 0
+          labels:
+            severety: critical
+            group: substrate-nodes
+            region: ${ region }
+          annotations:
+            summary: Substrate node scaling event irate
+            description: "Substrate scaling irate ({{ $value }})\n LABELS: {{ $labels }}"
