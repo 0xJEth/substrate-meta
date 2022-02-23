@@ -1,0 +1,36 @@
+{
+  "processors": [
+    {
+      "dissect": {
+        "field": "message",
+        "pattern": "%{substrate.timestamp} - %{substrate.upstream_host} - %{substrate.message}",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "json": {
+        "field": "substrate.json",
+        "ignore_failure": true
+      }
+    },
+    {
+      "convert": {
+        "field": "substrate.json.params",
+        "type": "string",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "date": {
+        "field": "substrate.timestamp",
+        "formats": [
+          "date_time_no_millis"
+        ],
+        "target_field": "@timestamp",
+        "ignore_failure": true
+      }
+    }
+  ]
+}
