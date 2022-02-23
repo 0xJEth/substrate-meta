@@ -10,11 +10,8 @@ repos:
         connect-envoy: ansible-role-substrate-connect-envoy-config
         truth: ansible-role-polkadot-truth
         validator: ansible-role-polkadot-validator
-
         library: ansible-role-polkadot-library
-
         health-check: ansible-role-polkadot-health-check
-
 
       terraform:
 
@@ -22,6 +19,7 @@ repos:
         asg: terraform-polkadot-aws-asg
         telemetry: terraform-polkadot-aws-telemetry
         user-data: terraform-polkadot-user-data
+        cloudwatch-exporter: terraform-polkadot-eks-cloudwatch-exporter
 #        api-lb: terraform-polkadot-aws-api-lb
 
       charts:
