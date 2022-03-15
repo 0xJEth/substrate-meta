@@ -9,7 +9,7 @@ Once ElasticSearch is configured to receive the logs, you can upload the [JSON v
 An example of this is:
 
 ```shell
-curl -s -X PUT 'https://elasticsearch:9200/_ingest/pipeline/substrate-pipeline' -H 'ApiKey: API_KEY' -H 'Content-Type: application/json' -d @substrate.json 
+curl -s -X PUT 'https://elasticsearch:9200/_ingest/pipeline/substrate-pipeline' -H 'Authorization: ApiKey $API_KEY' -H 'Content-Type: application/json' -d @substrate.json 
 ```
 
 Note that ElasticSearch requires authentication to use the API.
