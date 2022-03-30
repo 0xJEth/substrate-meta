@@ -38,20 +38,32 @@ for (( ; ; ))
 do
   # download primary manifest
   MANIFEST=$(curl -s $PRIMARY_MANIFEST_LOCATION)
-
+  primary_manifest_hash=$(echo -e $MANIFEST | md5sum)
   # and collect valid through time
   END_VALID_TIME=$(echo "$MANIFEST" | awk 'NR==1{print $5}')
 
   # run download
   echo "Starting primary download..."
-  echo "$MANIFEST" | aria2c -d $DEST_PATH -c --auto-file-renaming=false -j 25 -i -
+#  https://aria2.github.io/manual/en/html/aria2c.html
+# Use file allocation so if the disk fills up the process should exit.
+  echo "$MANIFEST" | aria2c -d $DEST_PATH -c --auto-file-renaming=false --file-allocation=falloc --no-file-allocation-limit=1M -j 25 -i -
 
-  # download parachains manifest
-  MANIFEST=$(curl -s $PARACHAINS_MANIFEST_LOCATION)
-
-  # run download
-  echo "Starting parachains download..."
-  echo "$MANIFEST" | aria2c -d "$DEST_PATH"parachains/db/ -c --auto-file-renaming=false -j 25 -i -
+# TODO: Disabled secondary download which was supposed to re-download the chain from the last checkpoint to pick up any
+#  files that were created after the first pass. Was intended to be a partial download as only files that have changed
+#  should be re-downloaded. It is a small gain though as at most the user would need to sync a days worth of blocks.
+#  Should be optimized later.
+#  # download manifest
+#  MANIFEST=$(curl -s $PARACHAINS_MANIFEST_LOCATION)
+#  secondary_manifest_hash=$(echo -e $MANIFEST | md5sum)
+#
+#  if [[ $primary_manifest_hash != $var2 ]] ;
+#  then
+#    # run download
+#    echo "Starting parachains download..."
+#    echo "$MANIFEST" | aria2c -d "$DEST_PATH"parachains/db/ -c --auto-file-renaming=false -j 25 -i -
+#  else
+#    echo false
+#  fi
 
   # grab current time
   NOW=$(date +"%s")
