@@ -4,7 +4,7 @@
 
 Meta repo for Substrate based blockchains for the W3F ecosystem including Polkadot and Kusama. Contains all associated repositories for Geometry Labs maintained code. 
 
-#### [Status Page](https://status.icon.geometry.io) 
+[//]: # (#### [Status Page]&#40;https://status.icon.geometry.io&#41; )
 
 #### Downloading a copy of the archive databases
 
@@ -29,7 +29,7 @@ All sub-repos can be pulled locally running `make pull-repos`.
 
 #### Terraform
 
-| Module                                                                                             | Version                                                                                                                              | Build Status                                                                                                            | 
+| Module | Version                                                                                                                              | Build Status                                                                                                            | 
 |:---------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------| 
 | [Node](https://github.com/geometry-labs/terraform-polkadot-aws-node)                               | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-aws-node.svg?style=flat)]()                | ![](https://github.com/geometry-labs/terraform-polkadot-aws-node/workflows/integration/badge.svg?branch=main)           | 
 | [Autoscaling Group](https://github.com/geometry-labs/terraform-polkadot-aws-asg)                   | [![GitHub Release](https://img.shields.io/github/release/geometry-labs/terraform-polkadot-aws-asg.svg?style=flat)]()                 | ![](https://github.com/geometry-labs/terraform-polkadot-aws-asg/workflows/integration/badge.svg?branch=main)            | 
