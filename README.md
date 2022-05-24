@@ -12,12 +12,17 @@ A [shell script](sync/archive_download.sh) is provided in the [sync](sync/) fold
 To use the script, just download and run:
 
 ```shell
+# Requires aria2c - script will tell you how to install if you haven't already
 ./archive_download.sh <network> <destination_path>
 ```
 
 Where `network` is either `polkadot` or `kusama`, and `destination_path` is the absolute path for the download (e.g. `/data/chains/polkadot/db/full/`)
 
-Prior to using, you must have installed [aria2c](https://aria2.github.io/).
+To then run an archive node you will need to point it to the path of the DB. 
+
+```shell
+polkadot --base-path ./data/chains/polkadot/db/full --pruning archive --database rocksdb --chain polkadot
+```
 
 ### Monitoring
 
