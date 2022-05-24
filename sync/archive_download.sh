@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# TODO: #2 - Fix error in aria at https://substrate.archive.aws.geometry.io/polkadot/full/
+#set -e
 
 if [[ $# -ne 2 ]]; then
   echo "Usage:" >&2
@@ -34,52 +36,31 @@ else
   exit 2
 fi
 
-for (( ; ; ))
-do
+run_download() {
+  #  https://aria2.github.io/manual/en/html/aria2c.html
+  # Use file allocation so if the disk fills up the process should exit.
+  curl -s $1 | aria2c -d $2 -c --auto-file-renaming=false --file-allocation=falloc --no-file-allocation-limit=1M -j 25 -i -
+}
+
+run_with_resync() {
   # download primary manifest
-  MANIFEST=$(curl -s $PRIMARY_MANIFEST_LOCATION)
-  primary_manifest_hash=$(echo -e $MANIFEST | md5sum)
-  # and collect valid through time
-  END_VALID_TIME=$(echo "$MANIFEST" | awk 'NR==1{print $5}')
+  MANIFEST=$(curl -s $1)
+  primary_manifest_hash=$(echo $MANIFEST | md5sum)
+  run_download $1 $2
 
-  # run download
-  echo "Starting primary download..."
-#  https://aria2.github.io/manual/en/html/aria2c.html
-# Use file allocation so if the disk fills up the process should exit.
-  echo "$MANIFEST" | aria2c -d $DEST_PATH -c --auto-file-renaming=false --file-allocation=falloc --no-file-allocation-limit=1M -j 25 -i -
-
-# TODO: Disabled secondary download which was supposed to re-download the chain from the last checkpoint to pick up any
-#  files that were created after the first pass. Was intended to be a partial download as only files that have changed
-#  should be re-downloaded. It is a small gain though as at most the user would need to sync a days worth of blocks.
-#  Should be optimized later.
-#  # download manifest
-#  MANIFEST=$(curl -s $PARACHAINS_MANIFEST_LOCATION)
-#  secondary_manifest_hash=$(echo -e $MANIFEST | md5sum)
-#
-#  if [[ $primary_manifest_hash != $var2 ]] ;
-#  then
-#    # run download
-#    echo "Starting parachains download..."
-#    echo "$MANIFEST" | aria2c -d "$DEST_PATH"parachains/db/ -c --auto-file-renaming=false -j 25 -i -
-#  else
-#    echo false
-#  fi
-
-  # grab current time
-  NOW=$(date +"%s")
-
-  # check if download finished within valid window
-  if [[ $NOW -le $END_VALID_TIME ]]
+  MANIFEST=$(curl -s $1)
+  if [[ $primary_manifest_hash != $(echo -e $MANIFEST | md5sum) ]] ;
   then
-    echo "Download completed successfully!"
-    break
+    echo "Running download again as source has been updated since the initial download was started."
+    # TODO: Implement a diff to only download new files
+#    grep -Fxv $(curl -s $1) $($primary_manifest_hash)
+    run_download $1 $2
+  else
+    echo "No need to download again. Up to date."
   fi
+}
 
-  echo "Download completed after manifest expiry. Will resume..."
-
-done
-
-# prepare rocksdb manifest files
-
-ls "$DEST_PATH"MANIFEST* | xargs -n 1 basename > "$DEST_PATH"CURRENT
-ls "$DEST_PATH"parachains/db/MANIFEST* | xargs -n 1 basename > "$DEST_PATH"parachains/db/CURRENT
+echo "Starting primary download..."
+run_with_resync $PRIMARY_MANIFEST_LOCAvi TION $2
+echo "Starting parachains download..."
+run_with_resync $PARACHAINS_MANIFEST_LOCATION $2/parachains/db
