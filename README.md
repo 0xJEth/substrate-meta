@@ -18,10 +18,12 @@ To use the script, just download and run:
 
 Where `network` is either `polkadot` or `kusama`, and `destination_path` is the absolute path for the download (e.g. `/data/chains/polkadot/db/full/`)
 
-To then run an archive node you will need to point it to the path of the DB. 
+To then run an archive node you will need to point it to the path of the DB.
+Note that it will look for the data of a given network under `./chains/<network>/db/full/` relative to the base bath, so you need store the snapshot and provide the path accordingly.
+E.g. for the path provided above:
 
 ```shell
-polkadot --base-path ./data/chains/polkadot/db/full --pruning archive --database rocksdb --chain polkadot
+polkadot --base-path /data --pruning archive --database rocksdb --chain polkadot
 ```
 
 ### Monitoring
